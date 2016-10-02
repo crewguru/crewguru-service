@@ -1,10 +1,11 @@
 /**
  * Created by bbonet on 9/30/16.
  */
-var restify = require('restify');
-//var baseUrl = "http://crewguru.apiary.io/api";
+var Restify = require('restify');
+var Request = require('request-promise');
+var baseUri = "http://private-683b55-crewguru.apiary-mock.com/api";
 
-var server = restify.createServer();
+var server = Restify.createServer();
 
 server.get('/api/users', getUsers);
 server.post('/api/users', addUser);
@@ -36,8 +37,8 @@ server.listen(8080, function() {
 
 function getUsers(req, res, next){
     console.log('getUsers');
-    res.send('getUsers');
-    next();
+
+    requestGet('/users', req, res, next);
 }
 
 function addUser(req, res, next){
@@ -48,8 +49,7 @@ function addUser(req, res, next){
 
 function findUser(req, res, next){
     console.log('findUser', req.params.id);
-    res.send('findUser ' + req.params.id);
-    next();
+    requestGet('/users/' + req.params.id, req, res, next);
 }
 
 function deleteUser(req, res, next){
@@ -60,8 +60,7 @@ function deleteUser(req, res, next){
 
 function getProfiles(req, res, next){
     console.log('getProfiles', req.params.id);
-    res.send('getProfiles ' + req.params.id);
-    next();
+    requestGet('/users/' + req.params.id + '/profiles', req, res, next)
 }
 
 function addProfile(req, res, next){
@@ -72,8 +71,7 @@ function addProfile(req, res, next){
 
 function findProfile(req, res, next){
     console.log('findProfile', req.params.id);
-    res.send('findProfile ' + req.params.id);
-    next();
+    requestGet('/users/profiles/' + req.params.id, req, res, next)
 }
 
 function deleteProfile(req, res, next){
@@ -84,8 +82,7 @@ function deleteProfile(req, res, next){
 
 function getProjects(req, res, next){
     console.log('getProjects', req.params.id);
-    res.send('getProjects ' + req.params.id);
-    next();
+    requestGet('/users/' + req.params.id + '/projects', req, res, next)
 }
 
 function addProject(req, res, next){
@@ -96,8 +93,7 @@ function addProject(req, res, next){
 
 function findProject(req, res, next){
     console.log('findProject', req.params.id);
-    res.send('findProject ' + req.params.id);
-    next();
+    requestGet('/users/projects/' + req.params.id, req, res, next)
 }
 
 function deleteProject(req, res, next){
@@ -108,24 +104,40 @@ function deleteProject(req, res, next){
 
 function getIndustries(req, res, next){
     console.log('getIndustries');
-    res.send('getIndustries');
-    next();
+    requestGet('/industries', req, res, next);
 }
 
 function findIndustry(req, res, next){
     console.log('findIndustry', req.params.id);
-    res.send('findIndustry ' + req.params.id);
-    next();
+    requestGet('/industries/' + req.params.id, req, res, next);
 }
 
 function getLocations(req, res, next){
     console.log('getLocations');
-    res.send('getLocations');
+    requestGet('/locations', req, res, next);
     next();
 }
 
 function findLocation(req, res, next){
     console.log('findLocation', req.params.id);
-    res.send('findLocation ' + req.params.id);
+    requestGet('/locations/' + req.params.id, req, res, next);
     next();
+}
+
+function requestGet(uri, req, res, next) {
+
+    var options = {
+        method: 'GET',
+        uri: baseUri + uri,
+        json: true
+    };
+
+    Request(options).then(function(json){
+            res.send(200, json);
+        }
+
+    ).catch(function(error) {
+            res.send(500, error);
+        }
+    );
 }
