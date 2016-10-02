@@ -48,7 +48,7 @@ paths:
           schema:
             $ref: '#/definitions/NewUser'
       responses:
-        200:
+        201:
           description: addUser response
           schema:
             $ref: '#/definitions/User'
