@@ -16,14 +16,14 @@ server.del('/api/users/:id', deleteUser);
 server.get('/api/users/:id/profiles', getProfiles);
 server.post('/api/users/:id/profiles', addProfile);
 
-server.get('/api/profiles/:id', findProfile);
-server.del('/api/profiles/:id', deleteProfile);
+server.get('/api/users/profiles/:id', findProfile);
+server.del('/api/users/profiles/:id', deleteProfile);
 
 server.get('/api/users/:id/projects', getProjects);
 server.post('/api/users/:id/projects', addProject);
 
-server.get('/api/projects/:id', findProject);
-server.del('/api/projects/:id', deleteProject);
+server.get('/api/users/projects/:id', findProject);
+server.del('/api/users/projects/:id', deleteProject);
 
 server.get('/api/industries', getIndustries);
 server.get('/api/industries/:id', findIndustry);
