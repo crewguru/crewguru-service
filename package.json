@@ -21,7 +21,8 @@
     "google-cloud": "^0.41.2",
     "request": "^2.75.0",
     "request-promise": "^4.1.1",
-    "restify": "^4.1.1"
+    "restify": "^4.1.1",
+    "stormpath-restify": "^0.1.0"
   },
   "devDependencies": {
     "typescript": "^2.0.3"
